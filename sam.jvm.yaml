@@ -1,0 +1,19 @@
+  AWSTemplateFormatVersion: '2010-09-09'
+  Transform: AWS::Serverless-2016-10-31
+  Description: AWS SpringCloud - spring-cloud-covid-function-aws-0.0.1-SNAPSHOT
+  Globals:
+    Api:
+      EndpointConfiguration: REGIONAL
+      BinaryMediaTypes:
+        - "*/*"
+
+  Resources:
+    covidFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        Handler: rian.example.springcloudfunction.handler.CovidFunctionHandler
+        Runtime: java11
+        CodeUri: target/spring-cloud-covid-function-aws-0.0.1-SNAPSHOT-aws.jar
+        MemorySize: 1024
+        Timeout: 280
+        Policies: AWSLambdaBasicExecutionRole

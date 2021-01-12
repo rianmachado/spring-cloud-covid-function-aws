@@ -6,4 +6,9 @@ covid:
   api:
     url: https://api.covid19api.com
     resource: /country/%s/status/confirmed?from=2020-01-01T00:00:00Z&to=2020-12-30T00:00:00Z
+     
 
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.cloud.config: DEBUG

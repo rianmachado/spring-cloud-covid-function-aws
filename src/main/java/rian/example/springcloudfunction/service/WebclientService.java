@@ -25,13 +25,15 @@ public class WebclientService {
 	private String resource;
 
 	public Mono<String> getCases(String input) {
-		TcpClient tcpClient = TcpClient.create().option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+
+		TcpClient tcpClient = TcpClient.create().option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 500000)
 				.doOnConnected(connection -> {
-					connection.addHandlerLast(new ReadTimeoutHandler(5000, TimeUnit.MILLISECONDS));
-					connection.addHandlerLast(new WriteTimeoutHandler(5000, TimeUnit.MILLISECONDS));
+					connection.addHandlerLast(new ReadTimeoutHandler(500000, TimeUnit.MILLISECONDS));
+					connection.addHandlerLast(new WriteTimeoutHandler(500000, TimeUnit.MILLISECONDS));
 				});
 		WebClient client = WebClient.builder().baseUrl(url)
 				.clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient))).build();
+
 		return client.get().uri(URI.create(String.format(url + resource, input))).retrieve().bodyToMono(String.class);
 	}
 
